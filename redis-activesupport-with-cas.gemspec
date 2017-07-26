@@ -3,7 +3,7 @@ $:.push File.expand_path('../lib', __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = 'redis-activesupport-with-cas'
-  s.version     = '0.0.1'
+  s.version     = '0.0.2'
   s.authors     = ['Rajko Albrecht']
   s.email       = ['ral@alwins-world.de']
   s.homepage    = 'https://git.alwin-it.de/alwin/redis-activesupport-with-cas'

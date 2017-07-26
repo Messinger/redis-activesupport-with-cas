@@ -61,7 +61,7 @@ module ActiveSupport
     class RedisStoreWithCas < RedisStore
 
       def initialize(*adresses)
-        super adresses
+        super 
         check_and_extend_cas
       end
 
