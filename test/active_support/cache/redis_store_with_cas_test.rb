@@ -18,6 +18,13 @@ describe "ActiveSupport::Cache::RedisStoreWithCas" do
     @dstore.instance_variable_get("@data").flushdb
   end
 
+  describe "Including into cache" do
+    it "should not done with distributed store" do
+      refute @dstore.candocas?
+      assert @store.candocas?
+    end
+  end
+
   describe "Single cas " do
     it "should not swap missing key" do
       refute @store.cas('rabbit') { |_value| flunk }
