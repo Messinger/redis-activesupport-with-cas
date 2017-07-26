@@ -21,7 +21,28 @@ module ActiveSupport
         end
       end
 
-      def cas_muli
+      def cas_multi(*names)
+        options = names.extract_options!
+        return if names.empty?
+
+        options = merged_options(options)
+        keys_to_names = Hash[names.map { |name| [normalize_key(name, options), name] }]
+
+        instrument(:cas_multi, names, options) do
+          @data.cas_multi(*(keys_to_names.keys), {:expires_in => cas_expiration(options)}) do |raw_values|
+            values = {}
+            raw_values.each do |key, entry|
+              values[keys_to_names[key]] = entry.value unless entry.expired?
+            end
+            values = yield values
+            break true if read_only
+            mapped_values = values.map do |name,value|
+              [normalize_key(name, options),options[:raw].present? ? value : Entry.new(value, options)]
+            end
+            Hash[mapped_values]
+          end
+          true
+        end
 
       end
 
