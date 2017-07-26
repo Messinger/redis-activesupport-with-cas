@@ -17,6 +17,15 @@ gem 'redis-activesupport-with-cas'
 ActiveSupport::Cache.lookup_store :redis_store_with_cas # { ... optional configuration ... }
 ```
 
+### Usage with `IdentityCache`
+
+Inside your environments configuration add following line:
+
+```ruby
+config.cache_store = :redis_store_with_cas, { :host => 'localhost', :port => 6379, :db => 0, :namespace => "data_cache", :expires_in => 15.minutes, :race_condition_ttl => 1}
+IdentityCache.cache_backend = ActiveSupport::Cache.lookup_store(*Rails.configuration.cache_store)
+```
+
 ## Running tests
 
 ```shell
