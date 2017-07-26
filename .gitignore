@@ -1,0 +1,9 @@
+Gemfile.lock
+*.gem
+tmp/
+stdout
+.idea/
+.ruby-version
+.ruby-gemset
+.yardoc/
+doc
